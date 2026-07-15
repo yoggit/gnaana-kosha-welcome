@@ -205,7 +205,7 @@
       <div class="scard" style="--acc:#E58BB0"><div class="ic">🌟</div><h3>Values &amp; Character</h3><p>Everyday situations that gently teach kindness, honesty, courage and gratitude.</p></div>
       <div class="scard" style="--acc:#E0904F"><div class="ic">🪔</div><h3>Indian History</h3><p>Empires, freedom fighters, epics, monuments and the great minds of India.</p></div>
     </div>
-    <p style="text-align:center;margin-top:24px;font-size:1rem;opacity:.9;">🔢 <b>Math &amp; Reasoning</b> has its own free companion app — <a href="https://ganitha.web.app/">explore Ganitha ↗</a></p>
+    <p style="text-align:center;margin-top:24px;font-size:1rem;opacity:.9;">🧮 <b>Math &amp; Reasoning</b> has its own free companion app — <a href="https://ganitha.web.app/">explore Ganitha ↗</a></p>
     <div class="stats">
       <div class="stat"><b>8</b><span>subjects</span></div>
       <div class="stat"><b>12,000+</b><span>verified questions</span></div>
@@ -228,8 +228,9 @@
       <div class="fcard"><div class="ic">🌱</div><h3>Grows with the grade</h3><p>Grades 3 to 6 each see their own difficulty, and an Advanced track mixes the hardest questions.</p></div>
       <div class="fcard"><div class="ic">💛</div><h3>Kind by design</h3><p>Encouraging feedback, gentle life-lessons, and celebration for effort. Nothing to lose, no pressure.</p></div>
       <div class="fcard"><div class="ic">🏆</div><h3>Badges &amp; confetti</h3><p>Small rewards for milestones — first quiz, perfect scores, streaks — to keep the spark alive.</p></div>
+      <div class="fcard"><div class="ic">🏡</div><h3>Screen time, your call</h3><p>Optional parent controls: a profile for each child, a daily limit from 15 minutes to 2 hours behind a PIN only you know, and a plain list of recent quizzes so you can see what they actually did.</p></div>
       <div class="fcard"><div class="ic">🔒</div><h3>Safe &amp; private</h3><p>No ads. No third-party tracking. Learning progress stays in the child's own browser.</p></div>
-      <div class="fcard"><div class="ic">📶</div><h3>Works offline</h3><p>Add it to the home screen and it opens like an app — even without a connection.</p></div>
+      <div class="fcard"><div class="ic">✈️</div><h3>Works offline</h3><p>Add it to the home screen and it opens like an app — even without a connection.</p></div>
     </div>
   </div>
 </section>
@@ -342,8 +343,16 @@
 
 <script>
   (function(){
-    var root=document.documentElement, key="gk_site_theme";
-    try{ var saved=localStorage.getItem(key); if(saved) root.setAttribute("data-theme",saved); }catch(e){}
+    // Shared with the hub and the sibling landing pages — all one origin (yoggit.github.io),
+    // so a visitor picks light/dark once and it follows them across the family. Each page still
+    // renders its OWN palette; the key only stores the choice.
+    var root=document.documentElement, key="apps-theme", OLD="gk_site_theme";
+    try{
+      // One-time migration off GK's private key, so an existing choice isn't silently dropped.
+      var old=localStorage.getItem(OLD);
+      if(old){ if(!localStorage.getItem(key)) localStorage.setItem(key, old); localStorage.removeItem(OLD); }
+      var saved=localStorage.getItem(key); if(saved) root.setAttribute("data-theme",saved);
+    }catch(e){}
     var btn=document.getElementById("themeToggle");
     if(btn) btn.addEventListener("click",function(){
       var cur=root.getAttribute("data-theme");
